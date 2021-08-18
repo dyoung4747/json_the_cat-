@@ -6,13 +6,17 @@ const breedInfo = function(catBreed) {
   catBreed = breed[0] + breed[1] + breed[2] + breed[3];
   let catDescription = "";
   request(`https://api.thecatapi.com/v1/images/search?breed_ids=${catBreed}`, (error, response, body) => {
-    console.log('error: ', error);
+    'error: ', error;
     'statusCode: ', response && response.statusCode;
     'body: ', body;
-
+    
     const data = JSON.parse(body);
-    catDescription = data[0].breeds[0].description;
-    console.log(catDescription);
+    if (!body.includes(breed)) {
+      console.log('No breed matched your selection');
+    } else {
+      catDescription = data[0].breeds[0].description;
+      console.log(catDescription);
+    }
   });
 };
 
